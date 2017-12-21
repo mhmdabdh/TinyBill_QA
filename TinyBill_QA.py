@@ -97,7 +97,7 @@ def fn_SubmitCreateItem():
 root = Tk()
 root.wm_attributes('-fullscreen', True)
 #root.state('zoomed')
-root.title ( "SICO Trichy")
+root.title ( "TinyBill SICO Trichy")
 
 
 
@@ -150,30 +150,148 @@ lblBillNo= Label(root,text="Bill No")
 lblBillNoValue= Label(root,text="Fetch from DB")
 lblSno= Label(root,text="S.No.")
 lblItemName= Label(root,text="Item Name and Description")
-lblQty= Label(root,text="Quantity")
-lblRate= Label(root,text="Rate")
-lblCGST= Label(root,text="CGST % ")
-lblSGST= Label(root,text="SGST %")
+lblQty= Label(root,text="Qty")
+lblRate= Label(root,text="Rate", width=3)
+lblCGST= Label(root,text="CGST%")
+lblSGST= Label(root,text="SGST%")
 lblBasicAmount= Label(root,text="Basic Amount")
-txtBillRow1_1 = Entry(root, width=2)
+
+#Billing form entry box creation ROW1
+txtBillRow1_1 = Entry(root, width=5)
+txtBillRow1_1.insert(0,"   1.")
+txtBillRow1_1.config(state='readonly')
 txtBillRow1_2= Entry(root, width=50)
-txtBillRow1_3= Entry(root, width=2)
-txtBillRow1_4= Entry(root)
-txtBillRow1_5= Entry(root, width=2)
-txtBillRow1_6= Entry(root, width=2)
+txtBillRow1_3= Entry(root, width=5)
+txtBillRow1_4= Entry(root, width=5)
+txtBillRow1_5= Entry(root, width=5)
+txtBillRow1_6= Entry(root, width=5)
 txtBillRow1_7= Entry(root)
 txtBillRow1_8= Entry(root)
 
-#Billrows
-txtBillRow2_1 = Entry(root, width=2)
-txtBillRow3_1 = Entry(root, width=2)
-txtBillRow4_1 = Entry(root, width=2)
-txtBillRow5_1 = Entry(root, width=2)
-txtBillRow6_1 = Entry(root, width=2)
-txtBillRow7_1 = Entry(root, width=2)
-txtBillRow8_1 = Entry(root, width=2)
-txtBillRow9_1 = Entry(root, width=2)
-txtBillRow10_1 = Entry(root, width=2)
+#PENDING ACTION Create  entry box on row 2-9 in this gap
+
+#Billing form entry box creation Row10
+txtBillRow10_1  = Entry(root, width=5)
+txtBillRow10_1.insert(0,"   10.")
+txtBillRow10_1.config(state='readonly')
+txtBillRow10_2 = Entry(root, width=50)
+txtBillRow10_3 = Entry(root, width=5)
+txtBillRow10_4 = Entry(root, width=5)
+txtBillRow10_5 = Entry(root, width=5)
+txtBillRow10_6 = Entry(root, width=5)
+txtBillRow10_7 = Entry(root)
+
+#Billrows - 10 Serial Nos
+txtBillRow2_1 = Entry(root, width=5)
+txtBillRow3_1 = Entry(root, width=5)
+txtBillRow4_1 = Entry(root, width=5)
+txtBillRow5_1 = Entry(root, width=5)
+txtBillRow6_1 = Entry(root, width=5)
+txtBillRow7_1 = Entry(root, width=5)
+txtBillRow8_1 = Entry(root, width=5)
+txtBillRow9_1 = Entry(root, width=5)
+
+
+#Create the Tax breakup, throw in textboxes
+
+txtCGST= Entry(root, width=5)
+txtCGST.insert(0,"CGST")
+txtCGST.config(state='readonly')
+txtSGST= Entry(root, width=5)
+txtSGST.insert(0,"SGST")
+txtSGST.config(state='readonly')
+txtTotal= Entry(root, width=5)
+txtTotal.insert(0,"Total")
+txtTotal.config(state='readonly')
+txtCGST_2_5= Entry(root, width=5)
+txtCGST_2_5.insert(0,"2.5")
+txtCGST_2_5.config(state='readonly')
+txtSGST_2_5= Entry(root, width=5)
+txtSGST_2_5.insert(0,"2.5")
+txtSGST_2_5.config(state='readonly')
+txtCGST_6_0= Entry(root, width=5)
+txtCGST_6_0.insert(0,"6.0")
+txtCGST_6_0.config(state='readonly')
+txtSGST_6_0= Entry(root, width=5)
+txtSGST_6_0.insert(0,"6.0")
+txtSGST_6_0.config(state='readonly')
+txtCGST_9_0= Entry(root, width=5)
+txtCGST_9_0.insert(0,"9.0")
+txtCGST_9_0.config(state='readonly')
+txtSGST_9_0= Entry(root, width=5)
+txtSGST_9_0.insert(0,"9.0")
+txtSGST_9_0.config(state='readonly')
+txtCGST_14_0= Entry(root, width=5)
+txtCGST_14_0.insert(0,"14.0")
+txtCGST_14_0.config(state='readonly')
+txtSGST_14_0= Entry(root, width=5)
+txtSGST_14_0.insert(0,"14.0")
+txtSGST_14_0.config(state='readonly')
+#Dynamic values in tax table
+txtTotal_2_5= Entry(root, width=5)
+txtTotal_2_5.config(state='readonly')
+txtTotal_6_0= Entry(root, width=5)
+txtTotal_6_0.config(state='readonly')
+txtTotal_9_0= Entry(root, width=5)
+txtTotal_9_0.config(state='readonly')
+txtTotal_14_0= Entry(root, width=5)
+txtTotal_14_0.config(state='readonly')
+
+#Throw in labels and textboxes needed for the Totals on the bottom right
+lblSubtotal=Label(root,text='Sub Total   Rs.')
+lblTaxTotal=Label(root,text='Tax Total   Rs.')
+lblGrandTotal=Label(root, font=(None,15), text='Grand Total  Rs.')
+txtSubTotal= Entry(root, width=5)
+txtSubTotal.config(state='readonly')
+txtTaxTotal= Entry(root, width=5)
+txtTaxTotal.config(state='readonly')
+txtGrandTotal= Entry(root, width=25)
+txtGrandTotal.config(state='readonly')
+
+
+# L shaped reference to know row and column size, to be commented out when not in use
+txtBillRowx0y12 = Entry(root)
+txtBillRowx1y12 = Entry(root)
+txtBillRowx2y12 = Entry(root)
+txtBillRowx3y12 = Entry(root)
+txtBillRowx4y12 = Entry(root)
+txtBillRowx5y12 = Entry(root)
+txtBillRowx6y12 = Entry(root)
+txtBillRowx7y12 = Entry(root)
+txtBillRowx8y12 = Entry(root)
+txtBillRowx9y12 = Entry(root)
+txtBillRowx10y12 = Entry(root)
+txtBillRowx11y12 = Entry(root)
+txtBillRowx12y12 = Entry(root)
+txtBillRowx13y12 = Entry(root)
+txtBillRowx14y12 = Entry(root)
+txtBillRowx15y12 = Entry(root)
+txtBillRowx16y12 = Entry(root)
+txtBillRowx17y12 = Entry(root)
+txtBillRowx18y12 = Entry(root)
+txtBillRowx19y12 = Entry(root)
+txtBillRowx20y12 = Entry(root)
+txtBillRowx21y12 = Entry(root)
+txtBillRowx22y12 = Entry(root)
+txtBillRowx23y12 = Entry(root)
+txtBillRowx24y12 = Entry(root)
+txtBillRowx25y12 = Entry(root)
+txtBillRowx26y12 = Entry(root)
+txtBillColumnx260y0 = Entry(root)
+txtBillColumnx261y1 = Entry(root)
+txtBillColumnx262y2 = Entry(root)
+txtBillColumnx263y3 = Entry(root)
+txtBillColumnx264y4 = Entry(root)
+txtBillColumnx265y5 = Entry(root)
+txtBillColumnx266y6 = Entry(root)
+txtBillColumnx267y7 = Entry(root)
+txtBillColumnx268y8 = Entry(root)
+txtBillColumnx269y9 = Entry(root)
+txtBillColumnx2610y10 = Entry(root)
+txtBillColumnx2611y11 = Entry(root)
+
+
+txtBillColumnx = Entry(root)
 
 
 #END OF WIDGETS
@@ -182,78 +300,172 @@ txtBillRow10_1 = Entry(root, width=2)
 #LAYOUT OF WIDGETS ON THE GRID
 
 # In Row 0
-lblCompanyLogo.grid(row=0, column=2,  sticky =N)
-lblShopNameTam.grid(row=0, column=4,  columnspan=4, sticky =N)
-lblDate_1.grid(row=0, column=10,sticky =N)
-lblDate_2.grid(row=0, column=10,sticky =E)
-btnCloseWindow.grid(row=0,column=11, sticky=N)
+lblCompanyLogo.grid(row=0, column=1,sticky =W)
+lblShopNameTam.grid(row=0, column=2,  columnspan=5 ,  sticky =W)
+lblDate_1.grid(row=0, column=6,sticky =N)
+lblDate_2.grid(row=0, column=6,sticky =S)
+btnCloseWindow.grid(row=0,column=7, sticky=W)
 
 # In Row 1
-lblShopNameEng.grid(row=1, column=5,sticky=N)
-lblClock.grid(row=1,column=10, sticky=N)
+lblShopNameEng.grid(row=1, column=1, columnspan=5)
+lblClock.grid(row=1,column=6, sticky=N)
 
 
 # In row 2 we have only blank space
 
 
 # In row 3 we have some stuff
-btnNewBill.grid(row=3 , column =2)
-btnExistBill.grid(row=3, column=4)
-btnCreateItem.grid(row=3, column =7)
-btnEditItem.grid(row=3, column=9)
+btnNewBill.grid(row=3 , column =1)
+btnExistBill.grid(row=3, column=2, sticky=W)
+btnCreateItem.grid(row=3, column =4)
+btnEditItem.grid(row=3, column=5,sticky=W)
 
 # In row 4 we have only blank space
 
 #In row 5 we display only the next bill number
-lblBillNo.grid(row=5, column =2)
-lblBillNoValue.grid(row=5, column =3)
+lblBillNo.grid(row=5, column =1)
+lblBillNoValue.grid(row=5, column =2,sticky=W)
 
 # In row 6 we have only blank space
 
 #In row 7 we display the various billing column headers
-lblSno.grid(row=7, column =2)
-lblItemName.grid(row=7, column =3, columnspan=2)
-lblQty.grid(row=7, column =5, sticky=W)
-lblRate.grid(row=7, column =6,sticky=W)
-lblCGST.grid(row=7, column =7)
-lblSGST.grid(row=7, column =8)
-lblBasicAmount.grid(row=7, column =9)
+lblSno.grid(row=7, column =1, sticky=E)
+lblItemName.grid(row=7, column =2 , sticky=W)
+lblQty.grid(row=7, column =3, sticky=W,padx=(5))
+lblRate.grid(row=7, column =3,padx=(5))
+lblCGST.grid(row=7, column =3, sticky=E)
+lblSGST.grid(row=7, column =4, sticky=W)
+lblBasicAmount.grid(row=7, column =4, sticky=W,padx=(45))
+
+
 
 #In  row 8 we have billing row 1
-txtBillRow1_1.grid(row=8, column =2)
-txtBillRow1_2.grid(row=8, column =3, columnspan=3,sticky=W)
-txtBillRow1_3.grid(row=8, column =6, sticky=W)
-txtBillRow1_4.grid(row=8, column =7, sticky=W)
-txtBillRow1_5.grid(row=8, column =8, sticky=W)
-txtBillRow1_6.grid(row=8, column =9, sticky=W)
-txtBillRow1_7.grid(row=8, column =10, sticky=W)
+txtBillRow1_1.grid(row=8, column =1,sticky=E)
+txtBillRow1_2.grid(row=8, column =2  , sticky=W,padx=(5))
+txtBillRow1_3.grid(row=8, column =3, sticky=W,padx=(5))
+txtBillRow1_4.grid(row=8, column =3 ,padx=(5))
+txtBillRow1_5.grid(row=8, column =3, sticky=E,padx=(5))
+txtBillRow1_6.grid(row=8, column =4, sticky=W,padx=(5))
+txtBillRow1_7.grid(row=8, column =4, sticky=W,padx=(45))
 #txtBillRow1_8.grid(row=8, column =8)
 
 
+
+
+
 #Billrows for testing, allocate to individual rows later on for better readability
-txtBillRow2_1.grid(row=9, column =2)
-txtBillRow3_1.grid(row=10, column =2)
-txtBillRow4_1.grid(row=11, column =2)
-txtBillRow5_1.grid(row=12, column =2)
-txtBillRow6_1.grid(row=13, column =2)
-txtBillRow7_1.grid(row=14, column =2)
-txtBillRow8_1.grid(row=15, column =2)
-txtBillRow9_1.grid(row=16, column =2)
-txtBillRow10_1.grid(row=17, column =2)
+txtBillRow2_1.grid(row=9, column =1,sticky=E)
+txtBillRow3_1.grid(row=10, column =1,sticky=E)
+txtBillRow4_1.grid(row=11, column =1,sticky=E)
+txtBillRow5_1.grid(row=12, column =1,sticky=E)
+txtBillRow6_1.grid(row=13, column =1,sticky=E)
+txtBillRow7_1.grid(row=14, column =1,sticky=E)
+txtBillRow8_1.grid(row=15, column =1,sticky=E)
+txtBillRow9_1.grid(row=16, column =1,sticky=E)
+
+
+
+#In row 17 we have the 10th billing row
+txtBillRow10_1.grid(row=17, column =1,sticky=E)
+txtBillRow10_2.grid(row=17, column =2  , sticky=W,padx=(5))
+txtBillRow10_3.grid(row=17, column =3, sticky=W,padx=(5))
+txtBillRow10_4.grid(row=17, column =3 ,padx=(5))
+txtBillRow10_5.grid(row=17, column =3, sticky=E,padx=(5))
+txtBillRow10_6.grid(row=17, column =4, sticky=W,padx=(5))
+txtBillRow10_7.grid(row=17, column =4, sticky=W,padx=(45))
+
+
+#In Row 19 we have the tax table, sub total
+txtCGST.grid(row=19, column =1,sticky=E)
+txtSGST.grid(row=19, column =2,sticky=W,padx=(5))
+txtTotal.grid(row=19, column =2 ,sticky=W,padx=(45))
+lblSubtotal.grid(row=19, column=4,sticky=W)
+txtSubTotal.grid(row=19, column=4,sticky=W,padx=(80))
+
+#In Row 20 we have the tax table, tax total
+txtCGST_2_5.grid(row=20, column=1,sticky=E)
+txtSGST_2_5.grid(row=20, column=2,sticky=W,padx=(5))
+txtTotal_2_5.grid(row=20, column =2 ,sticky=W,padx=(45))
+lblTaxTotal.grid(row=20,column=4,sticky=W)
+txtTaxTotal.grid(row=20, column=4, sticky=W,padx=(80))
+
+#In Row 21 we have the tax table
+txtCGST_6_0.grid(row=21, column =1,sticky=E )
+txtSGST_6_0.grid(row=21, column=2,sticky=W,padx=(5))
+txtTotal_6_0.grid(row=21, column =2 ,sticky=W,padx=(45))
+#In Row 22 we have the tax table , grand total
+txtCGST_9_0.grid(row=22, column=1,sticky=E)
+txtSGST_9_0.grid(row=22, column=2,sticky=W,padx=(5))
+txtTotal_9_0.grid(row=22, column =2 ,sticky=W,padx=(45))
+lblGrandTotal.grid(row=22,column=3,rowspan=2, sticky=E)
+txtGrandTotal.grid(row=22, column=4, rowspan=2,sticky=W,padx=(25))
+
+#In Row 23 we have the tax table , grand total
+txtCGST_14_0.grid(row=23, column=1,sticky=E)
+txtSGST_14_0.grid(row=23, column=2,sticky=W,padx=(5))
+txtTotal_14_0.grid(row=23, column =2 ,sticky=W,padx=(45))
+
+
 
 #In the last row
-lblThankyou.grid(row=24, column= 4, columnspan = 4, sticky=S)
-lblShoestring1.grid(row=25, column= 5, columnspan = 2,  sticky=S)
+lblThankyou.grid(row=24, column= 3,  sticky=S)
+lblShoestring1.grid(row=25, column= 3,  sticky=S)
+
+# L shaped reference to know row and column size, to be commented out when not in use
+#These will display  textboxes on the right side
+txtBillRowx0y12.grid(row=0, column=8, sticky=W)
+txtBillRowx1y12.grid(row=1, column=8, sticky=W)
+txtBillRowx2y12.grid(row=2, column=8, sticky=NSEW)
+txtBillRowx3y12.grid(row=3, column=8, sticky=NSEW)
+txtBillRowx4y12.grid(row=4, column=8, sticky=NSEW)
+txtBillRowx5y12.grid(row=5, column=8, sticky=NSEW)
+txtBillRowx6y12.grid(row=6, column=8, sticky=NSEW)
+txtBillRowx7y12.grid(row=7, column=8, sticky=NSEW)
+txtBillRowx8y12.grid(row=8, column=8, sticky=NSEW)
+txtBillRowx9y12.grid(row=9, column=8, sticky=NSEW)
+txtBillRowx10y12.grid(row=10 , column=8, sticky=NSEW)
+txtBillRowx11y12.grid(row= 11, column=8, sticky=NSEW)
+txtBillRowx12y12.grid(row=12 , column=8, sticky=NSEW)
+txtBillRowx13y12.grid(row=13 , column=8, sticky=NSEW)
+txtBillRowx14y12.grid(row=14 , column=8, sticky=NSEW)
+txtBillRowx15y12.grid(row=15 , column=8, sticky=NSEW)
+txtBillRowx16y12.grid(row=16 , column=8, sticky=NSEW)
+txtBillRowx17y12.grid(row=17 , column=8, sticky=NSEW)
+txtBillRowx18y12.grid(row=18 , column=8, sticky=NSEW)
+txtBillRowx19y12.grid(row=19 , column=8, sticky=NSEW)
+txtBillRowx20y12.grid(row=20 , column=8, sticky=NSEW)
+txtBillRowx21y12.grid(row=21 , column=8, sticky=NSEW)
+txtBillRowx22y12.grid(row=22 , column=8, sticky=NSEW)
+txtBillRowx23y12.grid(row=23 , column=8, sticky=NSEW)
+txtBillRowx24y12.grid(row=24 , column=8, sticky=NSEW)
+txtBillRowx25y12.grid(row=25 , column=8, sticky=NSEW)
+txtBillRowx26y12.grid(row=26 , column=8, sticky=NSEW)
+#These will display textboxes on the last row of the page
+txtBillColumnx260y0.grid(row=26 , column=0 , sticky=NSEW)
+txtBillColumnx261y1.grid(row=26 , column=1 , sticky=NSEW)
+txtBillColumnx262y2.grid(row=26 , column=2, sticky=NSEW)
+txtBillColumnx263y3.grid(row=26 , column=3 , sticky=NSEW)
+txtBillColumnx264y4.grid(row=26 , column=4 , sticky=NSEW)
+txtBillColumnx265y5.grid(row=26 , column=5 , sticky=NSEW)
+txtBillColumnx266y6.grid(row=26 , column=6 , sticky=NSEW)
+txtBillColumnx267y7.grid(row=26 , column=7 , sticky=NSEW)
+txtBillColumnx268y8.grid(row=26 , column=8 , sticky=NSEW)
+txtBillColumnx269y9.grid(row=26 , column=9 , sticky=NSEW)
+txtBillColumnx2610y10.grid(row=26  , column=10 , sticky=NSEW)
+txtBillColumnx2611y11.grid(row=26 ,  column=11 , sticky=NSEW)
+
+
+
 #END OF LAYOUT
 
 # To fix the column and row sizes to default
 col_count, row_count = root.grid_size()
 
 for col in xrange(col_count):
-    root.grid_columnconfigure(col, minsize=20)
+    root.grid_columnconfigure(col, minsize=10)
 
 for row in xrange(row_count):
-    root.grid_rowconfigure(row, minsize=20)
+    root.grid_rowconfigure(row, minsize=10)
 # END of fixing the column and row sizez
 
 #Setup the clock timer to display
