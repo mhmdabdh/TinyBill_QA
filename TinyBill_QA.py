@@ -11,7 +11,66 @@ from sqlite3 import Error
 
 
 
+#Function START
+#This is the jump function to generate a popup and select an item from the item list
 
+
+def fn_selectStockItemList(event=None):
+    def on_keyrelease(event):
+
+        # get text from entry
+        value = event.widget.get()
+        value = value.strip().lower()
+
+        # get data from test_list
+        if value == '':
+            data = test_list
+        else:
+            data = []
+            for item in test_list:
+                if value in item.lower():
+                    data.append(item)
+
+        # update data in listbox
+        listbox_update(data)
+
+    def listbox_update(data):
+        # delete previous data
+        listbox.delete(0, 'end')
+
+        # put new data
+        for item in data:
+            listbox.insert('end', item)
+
+    def on_select(event):
+        # display element selected on list
+        print('(event) previous:', event.widget.get('active'))
+        print('(event)  current:', event.widget.get(event.widget.curselection()))
+        print('---')
+        a = (event.widget.get(event.widget.curselection()))
+        print a
+        txtBillRow1_2.delete(0, END)
+        txtBillRow1_2.insert(0,a)
+
+    window3 = Toplevel()
+    window3.title("Select an Item!")
+    window3.geometry('{}x{}'.format(500,200))
+    listbox = Listbox(window3)
+    listbox.grid(row=8)
+    listbox.bind('<<ListboxSelect>>', on_select)
+    listbox.focus_set()
+    listbox.bind('<Return>', lambda event: window3.destroy())
+    txtBillRow1_3.focus_set()
+
+    #Get the data from inventory
+    connection = sqlite3.connect('sicotrichy_qa')
+    cur = connection.cursor()
+    cur.execute("select  stock_item_name  from tr_inventory")
+    sqloutput = cur.fetchall()  # This contains the SQL output in format [(u'data1',), (u'data2',), (u'data3',)]
+    sqloutput_2 = [item[0] for item in sqloutput]  # This is manipulated to the format [u'data1',u'data2',u'data3']
+    test_list = tuple(map(str, sqloutput_2))  # This will remove the unicode data and final format [data1,data2,data3]
+    listbox_update(test_list)
+#Function END
 
 
 #Function START
@@ -143,7 +202,7 @@ btnNewBill = Button(root, text="Create New Bill", border=1)
 btnExistBill = Button(root, text = "View Existing Bill", border=1)
 btnCreateItem = Button(root, text = "Create New Item",border=1 ,command= fn_CreateItem)
 btnEditItem = Button(root,text="Edit Existing Item",border=1)
-btnCloseWindow = Button(root, text="Exit", border=1, command=root.destroy)
+btnCloseWindow = Button(root, text="X", border=1, bg="red", command=root.destroy)
 
 #Throw in the labels, textboxes, needed in the billing form
 lblBillNo= Label(root,text="Bill No")
@@ -168,7 +227,32 @@ txtBillRow1_6= Entry(root, width=5)
 txtBillRow1_7= Entry(root)
 txtBillRow1_8= Entry(root)
 
-#PENDING ACTION Create  entry box on row 2-9 in this gap
+#Billing form entry box creation ROW2
+txtBillRow2_1 = Entry(root, width=5)
+txtBillRow2_1.insert(0,"   2.")
+txtBillRow2_1.config(state='readonly')
+txtBillRow2_2= Entry(root, width=50)
+txtBillRow2_3= Entry(root, width=5)
+txtBillRow2_4= Entry(root, width=5)
+txtBillRow2_5= Entry(root, width=5)
+txtBillRow2_6= Entry(root, width=5)
+txtBillRow2_7= Entry(root)
+txtBillRow2_8= Entry(root)
+
+
+#Billing form entry box creation ROW3
+txtBillRow3_1 = Entry(root, width=5)
+txtBillRow3_1.insert(0,"   3.")
+txtBillRow3_1.config(state='readonly')
+txtBillRow3_2= Entry(root, width=50)
+txtBillRow3_3= Entry(root, width=5)
+txtBillRow3_4= Entry(root, width=5)
+txtBillRow3_5= Entry(root, width=5)
+txtBillRow3_6= Entry(root, width=5)
+txtBillRow3_7= Entry(root)
+txtBillRow3_8= Entry(root)
+
+#PENDING ACTION Create  entry box on row 4-9 in this gap
 
 #Billing form entry box creation Row10
 txtBillRow10_1  = Entry(root, width=5)
@@ -182,8 +266,6 @@ txtBillRow10_6 = Entry(root, width=5)
 txtBillRow10_7 = Entry(root)
 
 #Billrows - 10 Serial Nos
-txtBillRow2_1 = Entry(root, width=5)
-txtBillRow3_1 = Entry(root, width=5)
 txtBillRow4_1 = Entry(root, width=5)
 txtBillRow5_1 = Entry(root, width=5)
 txtBillRow6_1 = Entry(root, width=5)
@@ -293,6 +375,8 @@ txtBillColumnx2611y11 = Entry(root)
 
 txtBillColumnx = Entry(root)
 
+#One listbox if needed
+
 
 #END OF WIDGETS
 
@@ -304,7 +388,7 @@ lblCompanyLogo.grid(row=0, column=1,sticky =W)
 lblShopNameTam.grid(row=0, column=2,  columnspan=5 ,  sticky =W)
 lblDate_1.grid(row=0, column=6,sticky =N)
 lblDate_2.grid(row=0, column=6,sticky =S)
-btnCloseWindow.grid(row=0,column=7, sticky=W)
+btnCloseWindow.grid(row=0,column=7, sticky=NE)
 
 # In Row 1
 lblShopNameEng.grid(row=1, column=1, columnspan=5)
@@ -350,12 +434,26 @@ txtBillRow1_7.grid(row=8, column =4, sticky=W,padx=(45))
 #txtBillRow1_8.grid(row=8, column =8)
 
 
+#In  row 9 we have billing row 2
+txtBillRow2_1.grid(row=9, column =1,sticky=E)
+txtBillRow2_2.grid(row=9, column =2  , sticky=W,padx=(5))
+txtBillRow2_3.grid(row=9, column =3, sticky=W,padx=(5))
+txtBillRow2_4.grid(row=9, column =3 ,padx=(5))
+txtBillRow2_5.grid(row=9, column =3, sticky=E,padx=(5))
+txtBillRow2_6.grid(row=9, column =4, sticky=W,padx=(5))
+txtBillRow2_7.grid(row=9, column =4, sticky=W,padx=(45))
 
+#In  row 10 we have billing row 3
+txtBillRow3_1.grid(row=10, column =1,sticky=E)
+txtBillRow3_2.grid(row=10, column =2  , sticky=W,padx=(5))
+txtBillRow3_3.grid(row=10, column =3, sticky=W,padx=(5))
+txtBillRow3_4.grid(row=10, column =3 ,padx=(5))
+txtBillRow3_5.grid(row=10, column =3, sticky=E,padx=(5))
+txtBillRow3_6.grid(row=10, column =4, sticky=W,padx=(5))
+txtBillRow3_7.grid(row=10, column =4, sticky=W,padx=(45))
 
 
 #Billrows for testing, allocate to individual rows later on for better readability
-txtBillRow2_1.grid(row=9, column =1,sticky=E)
-txtBillRow3_1.grid(row=10, column =1,sticky=E)
 txtBillRow4_1.grid(row=11, column =1,sticky=E)
 txtBillRow5_1.grid(row=12, column =1,sticky=E)
 txtBillRow6_1.grid(row=13, column =1,sticky=E)
@@ -468,6 +566,7 @@ for row in xrange(row_count):
     root.grid_rowconfigure(row, minsize=10)
 # END of fixing the column and row sizez
 
+#FUNCTION START
 #Setup the clock timer to display
 def fn_tick():
     global vTime1
@@ -482,13 +581,26 @@ def fn_tick():
     # could use >200 ms, but display gets jerky
     lblClock.after(200, fn_tick)
     #END OF CLOCK TICKER
+#FUNCTION END
+
+#START To find stockitemname
+
+#END - StockITemName selection
+
+
 
 
 #Call the clock ticker on initialization
 fn_tick()
 
+#Set focus to the first serial number
+txtBillRow1_1.focus_set()
 
-
+#Kickoff the StockItemList selection popup
+txtBillRow1_2.bind('<KeyRelease>', fn_selectStockItemList)
+txtBillRow2_2.bind('<KeyRelease>', fn_selectStockItemList)
+txtBillRow3_2.bind('<KeyRelease>', fn_selectStockItemList)
+txtBillRow10_2.bind('<KeyRelease>', fn_selectStockItemList)
 
 
 root.mainloop()
